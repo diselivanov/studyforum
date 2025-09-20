@@ -1,0 +1,111 @@
+@use '../../styles/vars' as *;
+@use '../../styles/mixins' as *;
+
+.profileContainer {
+  display: inline-block;
+  margin-top: auto;
+}
+
+.links {
+  display: flex;
+  gap: 5px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: $border-radius-8;
+  text-decoration: none;
+  border: 1px solid $border-color;
+  color: $color-1;
+  transition: background-color 0.1s;
+  
+  &:hover {
+   background-color: $background-2;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 150px;
+  padding: 10px 0;
+  color: $color-1;
+  font-size: $font-size-14;
+  border-radius: $border-radius-8;
+  background: none;
+  cursor: pointer;
+  transition: color 0.1s;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: $border-radius-250;
+  object-fit: cover;
+}
+
+.moreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $color-2;
+  padding: 4px;
+  border-radius: $border-radius-250;
+  transition: background-color 0.1s;
+  margin-left: auto;
+  margin-right: 4px;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+}
+
+.dropdownMenu {
+  position: absolute;
+  bottom: 60px;
+  left: 5px;
+  border-radius: 8px;
+  padding: 5px;
+  width: 179px;
+  z-index: 1000;
+  overflow: hidden;
+  background: $background-2;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.menuItem {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border-radius: $border-radius-8;
+  text-align: left;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $color-1;
+  text-decoration: none;
+  transition: background-color 0.1s ease;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+}

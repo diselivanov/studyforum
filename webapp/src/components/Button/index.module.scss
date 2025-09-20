@@ -1,0 +1,82 @@
+@use 'sass:color';
+@use '../../styles/vars' as *;
+@use '../../styles/mixins' as *;
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  width: 100%;
+  color: $color-1;
+  font-family: $font-family;
+  font-size: $font-size-15;
+  border-radius: $border-radius-8;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  line-height: normal;
+  margin-left: auto;
+
+  .text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &.color-green {
+    background-color: $green;
+    border: 1px solid darken($green, 5%);
+
+    &:hover {
+      background-color: darken($green, 2%);
+    }
+  }
+
+  &.color-red {
+    background-color: $red;
+    border: 1px solid darken($red, 5%);
+
+    &:hover {
+      background-color: darken($red, 4%);
+    }
+  }
+
+  &.color-blue {
+    background-color: $blue;
+    border: 1px solid darken($blue, 5%);
+
+    &:hover {
+      background-color: darken($blue, 2%);
+    }
+  }
+
+  &.color-transparent {
+    background-color: transparent;
+    border: 1px solid $border-color;
+    color: $color-1;
+
+    &:hover {
+      background-color: $background-2;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    color: $background-1;
+  }
+
+  &.loading {
+    .text {
+      opacity: 0;
+    }
+  }
+}
+
+.buttons {
+  margin-right: -5px;
+
+  & > * {
+    margin-right: 5px;
+  }
+}

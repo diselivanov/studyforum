@@ -1,0 +1,43 @@
+@use '../../../styles/vars' as *;
+@use '../../../styles/mixins' as *;
+
+.more {
+  margin-top: 10px;
+}
+
+.filters {
+  position: sticky;
+  top: -10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 10px 0 10px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  border-bottom: 1px solid $border-color;
+  background-color: $background-1;
+  margin: -10px;
+}
+
+.selects {
+  display: flex;
+  gap: 8px;
+}
+
+.searchInput {
+  padding: 8px 12px;
+  border: 2px solid $border-color;
+  border-radius: 50px;
+  background-color: $background-1;
+  font-size: 14px;
+  min-width: 400px;
+  color: $color-1;
+  font-size: 15px;
+  font-family: $font-family;
+  margin-bottom: 15px;
+  
+  &:focus {
+    outline: none;
+    border-color: $blue
+  }
+}

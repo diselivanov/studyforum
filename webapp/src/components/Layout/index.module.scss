@@ -1,0 +1,47 @@
+@use '../../styles/vars' as *;
+@use '../../styles/mixins' as *;
+
+.layout {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 190px;
+    background-color: $background-1;
+    border-right: 1px solid $border-color;
+    padding: 5px;
+
+    .tab {
+      border-radius: $border-radius-8;
+      transition: background-color 0.1s ease;
+      border: 1px solid transparent;
+
+      &:hover {
+        background-color: $background-2;
+        border-color: rgba($border-color, 0.3);
+      }
+
+      .link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: $color-1;
+        padding: 12px;
+
+        svg {
+          color: $blue;
+        }
+      }
+    }
+  }
+
+  .content {
+    background-color: $background-2;
+    flex: 1;
+    overflow: auto;
+    padding: 10px;
+  }
+}

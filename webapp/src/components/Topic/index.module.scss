@@ -1,0 +1,120 @@
+@use '../../styles/vars' as *;
+@use '../../styles/mixins' as *;
+
+.Topic {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: $border-radius-8;
+  padding: 8px;
+  margin-bottom: 6px;
+  background-color: $background-1;
+
+  &:first-child {
+    margin-top: 20px;
+  }
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.meta {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.disciplineBadge {
+  background-color: rgba($blue, 0.1);
+  border: 1px solid rgba($blue, 0.3);
+  color: $blue;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.teacherBadge {
+  background-color: rgba($green, 0.1);
+  border: 1px solid rgba($green, 0.3);
+  color: $green;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.topicTitle {
+  display: block;
+  font-size: $font-size-16;
+  font-weight: 500;
+  color: $color-1;
+  margin: 0;
+  text-decoration: none;
+  line-height: 1.4;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.info {
+  display: flex;
+  gap: 14px;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: $background-2;
+  padding: 0 10px;
+  border-radius: 8px;
+  
+  .likeIcon {
+    width: 16px;
+    height: 16px;
+    color: $color-2;
+  }
+  
+  .likesCount {
+    font-size: $font-size-14;
+    color: $color-2;
+  }
+}
+
+.author {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 140px;
+  border-right: 1px solid $border-color;
+  padding-right: 14px;
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: $border-radius-250;
+    object-fit: cover;
+  }
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .name {
+    font-size: $font-size-14;
+    color: $color-1;
+    font-weight: 500;
+  }
+
+  .createdAt {
+    font-size: 12px;
+    color: $color-2;
+  }
+}

@@ -1,0 +1,50 @@
+@use '../../styles/vars' as *;
+@use '../../styles/mixins' as *;
+
+.field {
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  .label {
+    color: $color-2;
+    font-size: $font-size-14;
+    margin-bottom: 6px;
+    display: block;
+    user-select: none;
+  }
+
+  .input {
+    display: block;
+    padding: 8px;
+    font-family: $font-family;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-8;
+    background-color: $background-1;
+    color: $color-1;
+    outline: none;
+    width: 100%;
+
+    &:focus {
+      box-shadow: 0 0 0 1px $blue;
+      border-color: $blue;
+    }
+
+    &.invalid {
+      border-color: $red;
+
+      &:focus {
+        border-color: $blue;
+      }
+    }
+  }
+
+  .error {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 5px;
+    color: $red;
+    user-select: none;
+  }
+}

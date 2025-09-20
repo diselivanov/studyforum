@@ -1,0 +1,252 @@
+// index.module.scss
+.container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1001; // Выше чем какашки
+}
+
+.poopContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.poop {
+  position: absolute;
+  user-select: none;
+  transition: transform 0.1s linear;
+}
+
+.fartButton {
+  min-width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #1a1a1a;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: borderPulse 1s ease infinite;
+
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px 8px rgba(255, 166, 0, 0.7);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  // Анимация "танца" при воспроизведении
+  &.playing {
+    animation: dance 0.5s ease infinite;
+    
+    &::before {
+      animation: borderPulse 0.8s ease infinite;
+    }
+  }
+}
+
+// Пульсация градиентной обводки
+@keyframes borderPulse {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Анимация "танца" для кнопки
+@keyframes dance {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(0deg) scale(1);
+  }
+  75% {
+    transform: rotate(5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.imageContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.pripevImage {
+  max-width: 60%;
+  max-height: 60%;
+  animation: fadeIn 1.5s ease-in;
+  border-radius: 16px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.backgroundImage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dikiyContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1009;
+  border-radius: 10px;
+}
+
+.dikiyImage {
+  width: 300px;
+  height: auto;
+  animation: bounce 0.2s infinite alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50px);
+  }
+}
+
+.hackerConsole {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 300px;
+  background-color: #00000047;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 1000;
+  overflow: hidden;
+  font-family: 'Consolas', monospace;
+}
+
+.consoleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #00000077;;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.consoleButtons {
+  display: flex;
+  gap: 6px;
+}
+
+.consoleTitle {
+  color: #ff0000;
+  font-size: 12px;
+}
+
+.consoleContent {
+  padding: 15px;
+  height: calc(100% - 40px);
+  overflow-y: auto;
+  color: #00ff00;
+  font-size: 12px;
+}
+
+.consoleLine {
+  margin-bottom: 5px;
+}
+
+.blinkingCursor {
+  animation: blink 0.3s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+// Для темного скроллбара в консоли
+.consoleContent::-webkit-scrollbar {
+  width: 5px;
+}
+
+.consoleContent::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.consoleContent::-webkit-scrollbar-thumb {
+  background: #a9a9a937;
+  border-radius: 4px;
+}
+
+.consoleContent::-webkit-scrollbar-thumb:hover {
+  background: #81818136;
+}
+
+.skeletContainer {
+  position: fixed;
+  top: 25%;
+  right: 200px;
+  z-index: 999;
+}
+
+.skeletImage {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+}

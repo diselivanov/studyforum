@@ -1,0 +1,45 @@
+@use '../UploadToCloudinary/index.module';
+@use '../../styles/vars' as *;
+
+.field {
+  input {
+    display: none;
+  }
+
+  .previews {
+    display: flex;
+    flex-flow: row wrap;
+    margin-right: -5px;
+
+    .previewPlace {
+      margin-right: 5px;
+
+      .delete {
+        position: absolute;
+        top: 3px;
+        right: 2px;
+        padding: 0;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        background-color: $background-1;
+        border: 1px solid $border-color;
+
+        .deleteIcon {
+          font-size: 17px;
+          color: $color-1;
+
+          &:hover {
+            color: $red;
+          }
+        }
+      }
+    }
+  }
+}
