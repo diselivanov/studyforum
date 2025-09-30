@@ -33,38 +33,26 @@ export const ProfileButton = () => {
     <div className={css.profileContainer} ref={menuRef}>
       {me ? (
         <>
-        <div className={css.buttons}>
-          <Link to={getProfileRoute()} className={css.profileButton}>
-            <img 
-              className={css.avatar} 
-              alt="Фото профиля" 
-              src={getAvatarUrl(me.avatar, 'small')} 
-            />
-            <span>{me.name}</span>
-          </Link>
+          <div className={css.buttons}>
+            <Link to={getProfileRoute()} className={css.profileButton}>
+              <img className={css.avatar} alt="Фото профиля" src={getAvatarUrl(me.avatar, 'small')} />
+              <span>{me.name}</span>
+            </Link>
 
-          <button className={css.moreButton} onClick={toggleMenu}>
-            <Icon name={"more"} size={18} />
-          </button>
-        </div>
-          
+            <button className={css.moreButton} onClick={toggleMenu}>
+              <Icon name={'more'} size={18} />
+            </button>
+          </div>
+
           {isMenuOpen && (
             <div className={css.dropdownMenu}>
-              <Link 
-                to={getEditProfileRoute()} 
-                className={css.menuItem}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Icon name={'settings'} size={16}/>
+              <Link to={getEditProfileRoute()} className={css.menuItem} onClick={() => setIsMenuOpen(false)}>
+                <Icon name={'settings'} size={16} />
                 <div>Настройки</div>
               </Link>
-              
-              <Link 
-                to={getSignOutRoute()} 
-                className={css.menuItem}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Icon name={'signout'} size={16}/>
+
+              <Link to={getSignOutRoute()} className={css.menuItem} onClick={() => setIsMenuOpen(false)}>
+                <Icon name={'signout'} size={16} />
                 <div>Выйти</div>
               </Link>
             </div>

@@ -2,7 +2,6 @@
 @use '../../styles/mixins' as *;
 
 .field {
-  margin-bottom: 1rem;
   position: relative;
   min-width: 300px;
 
@@ -15,18 +14,18 @@
 .label {
   color: $color-2;
   font-size: $font-size-14;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   display: block;
   user-select: none;
 }
 
 .selectTrigger {
   width: 100%;
-  padding: 11px;
+  padding: 10px;
   font-family: $font-family;
   border: 1px solid $border-color;
   border-radius: $border-radius-8;
-  background-color: $background-1;
+  background-color: $background-2;
   color: $color-1;
   display: flex;
   align-items: center;
@@ -71,7 +70,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  background-color: $background-1;
+  background-color: $background-2;
   border: 1px solid $border-color;
   border-radius: $border-radius-8;
   margin-top: 4px;
@@ -94,7 +93,7 @@
   justify-content: space-between;
 
   &:hover {
-    background-color: $background-2;
+    background-color: $background-3;
   }
 }
 

@@ -46,9 +46,9 @@ const disciplineTeachersMap = {
     { value: 'Родина Л.И.', label: 'Родина Л.И.' },
     { value: 'Ушаков В.К.', label: 'Ушаков В.К.' },
     { value: 'Шевелев В.В.', label: 'Шевелев В.В.' },
-    { value: 'Шелепова Е.В.', label: 'Шелепова Е.В.' }
+    { value: 'Шелепова Е.В.', label: 'Шелепова Е.В.' },
   ],
-  'Физика': [
+  Физика: [
     { value: 'Глазков В.Н.', label: 'Глазков В.Н.' },
     { value: 'Сафронов И.С.', label: 'Сафронов И.С.' },
     { value: 'Андрухова О.В.', label: 'Андрухова О.В.' },
@@ -70,7 +70,7 @@ const disciplineTeachersMap = {
     { value: 'Шинкин В.Н.', label: 'Шинкин В.Н.' },
     { value: 'Шелятев Д.А.', label: 'Шелятев Д.А.' },
     { value: 'Забенков И.В.', label: 'Забенков И.В.' },
-    { value: 'Агиевич И.А.', label: 'Агиевич И.А.' }
+    { value: 'Агиевич И.А.', label: 'Агиевич И.А.' },
   ],
   'Социальные науки': [
     { value: 'Тимощук Н.А.', label: 'Тимощук Н.А.' },
@@ -93,9 +93,9 @@ const disciplineTeachersMap = {
     { value: 'Урсул Т.А.', label: 'Урсул Т.А.' },
     { value: 'Хорват Д.А.', label: 'Хорват Д.А.' },
     { value: 'Челышев П.В.', label: 'Челышев П.В.' },
-    { value: 'Черных А.А.', label: 'Черных А.А.' }
+    { value: 'Черных А.А.', label: 'Черных А.А.' },
   ],
-  'Химия': [
+  Химия: [
     { value: 'Пестряк И.В.', label: 'Пестряк И.В.' },
     { value: 'Лобанова В.Г.', label: 'Лобанова В.Г.' },
     { value: 'Волков П.В.', label: 'Волков П.В.' },
@@ -107,7 +107,7 @@ const disciplineTeachersMap = {
     { value: 'Поливанская В.В.', label: 'Поливанская В.В.' },
     { value: 'Сименео А.А.', label: 'Сименео А.А.' },
     { value: 'Тер-Акопян М.Н.', label: 'Тер-Акопян М.Н.' },
-    { value: 'Чеканова Е.С.', label: 'Чеканова Е.С.' }
+    { value: 'Чеканова Е.С.', label: 'Чеканова Е.С.' },
   ],
   'Иностранные языки': [
     { value: 'Щавелева Е.Н.', label: 'Щавелева Е.Н.' },
@@ -119,7 +119,7 @@ const disciplineTeachersMap = {
     { value: 'Богатырёв А.А.', label: 'Богатырёв А.А.' },
     { value: 'Валле Чилина И.Д.', label: 'Валле Чилина И.Д.' },
     { value: 'Витогнова А.М.', label: 'Витогнова А.М.' },
-    { value: 'Горизонтова А.В', label: 'Горизонтова А.В' }
+    { value: 'Горизонтова А.В', label: 'Горизонтова А.В' },
   ],
   'Инфокоммуникационные технологии': [
     { value: 'Колистратов М.В.', label: 'Колистратов М.В.' },
@@ -144,8 +144,8 @@ const disciplineTeachersMap = {
     { value: 'Нафиков А.М.', label: 'Нафиков А.М.' },
     { value: 'Ефимов Д.А.', label: 'Ефимов Д.А.' },
     { value: 'Ким В.Р.', label: 'Ким В.Р.' },
-    { value: 'Климченко К.П.', label: 'Климченко К.П.' }
-  ]
+    { value: 'Климченко К.П.', label: 'Климченко К.П.' },
+  ],
 }
 
 export const NewTopicPage = withPageWrapper({
@@ -153,7 +153,7 @@ export const NewTopicPage = withPageWrapper({
   title: 'New Topic',
 })(() => {
   const createTopic = trpc.createTopic.useMutation()
-  const [availableTeachers, setAvailableTeachers] = useState<{value: string, label: string}[]>([])
+  const [availableTeachers, setAvailableTeachers] = useState<{ value: string; label: string }[]>([])
 
   // Базовые начальные значения
   const initialValues: FormValues = {
@@ -191,10 +191,13 @@ export const NewTopicPage = withPageWrapper({
     const discipline = formik.values.discipline
     if (discipline && disciplineTeachersMap[discipline as keyof typeof disciplineTeachersMap]) {
       setAvailableTeachers(disciplineTeachersMap[discipline as keyof typeof disciplineTeachersMap])
-      
+
       // Сбрасываем выбранного преподавателя, если он не соответствует новому предмету
-      if (!disciplineTeachersMap[discipline as keyof typeof disciplineTeachersMap]
-          .some(teacher => teacher.value === formik.values.teacher)) {
+      if (
+        !disciplineTeachersMap[discipline as keyof typeof disciplineTeachersMap].some(
+          (teacher) => teacher.value === formik.values.teacher
+        )
+      ) {
         formik.setFieldValue('teacher', '')
       }
     } else {
@@ -213,9 +216,9 @@ export const NewTopicPage = withPageWrapper({
         <FormItems>
           <Input name="title" label="Название" formik={formik} />
           <Textarea name="description" label="Описание" formik={formik} />
-          <Select 
-            name="discipline" 
-            label="Дисциплина" 
+          <Select
+            name="discipline"
+            label="Дисциплина"
             formik={formik}
             options={[
               { value: 'Высшая математика', label: 'Высшая математика' },
@@ -226,9 +229,9 @@ export const NewTopicPage = withPageWrapper({
               { value: 'Инфокоммуникационные технологии', label: 'Инфокоммуникационные технологии' },
             ]}
           />
-          <Select 
-            name="teacher" 
-            label="Преподаватель" 
+          <Select
+            name="teacher"
+            label="Преподаватель"
             formik={formik}
             options={availableTeachers}
             disabled={!formik.values.discipline}

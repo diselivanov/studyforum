@@ -46,7 +46,7 @@ const General = ({ me }: { me: NonNullable<TrpcRouterOutput['getMe']['me']> }) =
         <Input label="Телефон" name="phone" formik={formik} />
         <Input label="Описание" name="description" formik={formik} />
         <Input label="Дата рождения" name="age" formik={formik} />
-         <Input label="Курс" name="year" formik={formik} />
+        <Input label="Курс" name="year" formik={formik} />
         <Input label="Форма обучения" name="form" formik={formik} />
         <Input label="Факультет" name="faculty" formik={formik} />
         <Input label="Направление" name="direction" formik={formik} />

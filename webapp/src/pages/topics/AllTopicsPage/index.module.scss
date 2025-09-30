@@ -7,37 +7,44 @@
 
 .filters {
   position: sticky;
-  top: -10px;
+  top: 0;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 10px 10px 0 10px;
-  flex-wrap: wrap;
-  align-items: flex-end;
+  padding: 5px 10px;
   border-bottom: 1px solid $border-color;
   background-color: $background-1;
-  margin: -10px;
 }
 
 .selects {
   display: flex;
   gap: 8px;
+  margin-bottom: 4px;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  color: $color-3;
+  padding: 0 10px;
+  border-radius: $border-radius-8;
+  background-color: $background-2;
+  border: 1px solid $border-color;
 }
 
 .searchInput {
   padding: 8px 12px;
-  border: 2px solid $border-color;
-  border-radius: 50px;
-  background-color: $background-1;
+  border-radius: $border-radius-8;
+  border: none;
+  background: none;
   font-size: 14px;
-  min-width: 400px;
+  min-width: 300px;
   color: $color-1;
   font-size: 15px;
   font-family: $font-family;
-  margin-bottom: 15px;
-  
+
   &:focus {
     outline: none;
-    border-color: $blue
+    border-color: $blue;
   }
 }

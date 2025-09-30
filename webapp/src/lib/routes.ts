@@ -12,3 +12,5 @@ export const getEditProfileRoute = pgr(() => '/edit-profile')
 export const getNewTopicRoute = pgr(() => '/topics/new')
 export const getViewTopicRoute = pgr({ selectedTopic: true }, ({ selectedTopic }) => `/topics/${selectedTopic}`)
 export const getEditTopicRoute = pgr({ selectedTopic: true }, ({ selectedTopic }) => `/topics/${selectedTopic}/edit`)
+
+export const getViewUserRoute = pgr({ selectedUser: true }, ({ selectedUser }) => `/users/${selectedUser}`)

@@ -25,9 +25,11 @@ model User {
   group       String @default("")
   year        String @default("")
 
-  avatar      String?
-  topics      Topic[]
-  topicsLikes TopicLike[]
+  avatar       String?
+  topics       Topic[]
+  topicsLikes  TopicLike[]
+  comments     Comment[]
+  commentLikes CommentLike[]
 
   permissions UserPermission[]
   createdAt   DateTime         @default(now())
@@ -52,6 +54,7 @@ model Topic {
   author   User   @relation(fields: [authorId], references: [id])
 
   topicsLikes TopicLike[]
+  comments    Comment[]
 
   createdAt DateTime  @default(now())
   blockedAt DateTime?
@@ -66,4 +69,45 @@ model TopicLike {
   userId    String
 
   @@unique([topicId, userId])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Связь с автором комментария
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  // Связь с темой
+  topicId String
+  topic   Topic  @relation(fields: [topicId], references: [id])
+
+  // Связь с родительским комментарием (для ответов)
+  parentId String?
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies  Comment[] @relation("CommentReplies")
+
+  // Лайки комментария
+  commentLikes CommentLike[]
+
+  // Флаг удаления (мягкое удаление)
+  deletedAt DateTime?
+}
+
+model CommentLike {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  // Связь с комментарием
+  comment   Comment @relation(fields: [commentId], references: [id])
+  commentId String
+
+  // Связь с пользователем
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@unique([commentId, userId])
 }

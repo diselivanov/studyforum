@@ -16,6 +16,7 @@ import { SignUpPage } from './pages/auth/SignUpPage'
 import { NotFoundPage } from './pages/other/NotFoundPage'
 import { ProfilePage } from './pages/auth/ProfilePage'
 import './styles/global.scss'
+import { ViewUserPage } from './pages/auth/ViewUserPage'
 
 export const App = () => {
   return (
@@ -33,6 +34,7 @@ export const App = () => {
                 <Route path={routes.getEditProfileRoute.definition} element={<EditProfilePage />} />
                 <Route path={routes.getAllTopicsRoute.definition} element={<AllTopicsPage />} />
                 <Route path={routes.getViewTopicRoute.definition} element={<ViewTopicPage />} />
+                <Route path={routes.getViewUserRoute.definition} element={<ViewUserPage />} />
                 <Route path={routes.getEditTopicRoute.definition} element={<EditTopicPage />} />
                 <Route path={routes.getNewTopicRoute.definition} element={<NewTopicPage />} />
                 <Route path="*" element={<NotFoundPage />} />

@@ -1,9 +1,13 @@
 import { getAvatarUrl } from '@studyforum/shared/src/cloudinary'
+import format from 'date-fns/format'
 import { Segment } from '../../../components/Segment'
 import { withPageWrapper } from '../../../lib/pageWrapper'
+import { trpc } from '../../../lib/trpc'
 import css from './index.module.scss'
+import { ru } from 'date-fns/locale'
+import { getViewUserRoute } from '../../../lib/routes'
 
-// Иконки для визуального улучшения
+// Иконки (те же самые)
 const PhoneIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.68 14.91 16.08 14.82 16.43 14.94C17.55 15.31 18.76 15.51 20 15.51C20.55 15.51 21 15.96 21 16.51V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.32 8.82 8.59L6.62 10.79Z" />
@@ -46,25 +50,60 @@ const GroupIcon = () => (
   </svg>
 )
 
-export const ProfilePage = withPageWrapper({
-  authorizedOnly: true,
-  setProps: ({ getAuthorizedMe }) => ({
-    me: getAuthorizedMe(),
+const TopicIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M14 2H6C4.9 2 4.01 2.9 4.01 4L4 20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2ZM16 18H8V16H16V18ZM16 14H8V12H16V14ZM13 9V3.5L18.5 9H13Z"
+      fill="currentColor"
+    />
+  </svg>
+)
+
+const CommentIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z"
+      fill="currentColor"
+    />
+  </svg>
+)
+
+const LikeIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M1 21H5V9H1V21ZM23 10C23 8.9 22.1 8 21 8H14.69L15.64 3.43L15.67 3.11C15.67 2.7 15.5 2.32 15.23 2.05L14.17 1L7.59 7.59C7.22 7.95 7 8.45 7 9V19C7 20.1 7.9 21 9 21H18C18.83 21 19.54 20.5 19.84 19.78L22.86 12.73C22.95 12.5 23 12.26 23 12V10Z"
+      fill="currentColor"
+    />
+  </svg>
+)
+
+export const ViewUserPage = withPageWrapper({
+  useQuery: () => {
+    const { selectedUser } = getViewUserRoute.useParams()
+    return trpc.getUser.useQuery({
+      selectedUser: selectedUser,
+    })
+  },
+  setProps: ({ queryResult, checkExists, ctx }) => ({
+    user: checkExists(queryResult.data?.user, 'User not found'),
+    me: ctx.me,
   }),
-  title: 'Профиль',
-})(({ me }) => {
+  showLoaderOnFetching: false,
+  title: ({ user }) => `Профиль: ${user.name}`,
+})(({ user }) => {
   return (
     <div className={css.container}>
       <Segment title="">
         <div className={css.profile}>
           <div className={css.avatarSection}>
-            <img className={css.avatar} alt="Фото профиля" src={getAvatarUrl(me.avatar, 'small')} />
-            <h1 className={css.name}>{me.name}</h1>
-            {me.description && (
+            <img className={css.avatar} alt="Фото профиля" src={getAvatarUrl(user.avatar, 'small')} />
+            <h1 className={css.name}>{user.name}</h1>
+            {user.description && (
               <div className={css.description}>
-                <p>{me.description}</p>
+                <p>{user.description}</p>
               </div>
             )}
+            <div className={css.joinDate}>Регистрация: {format(user.createdAt, 'd MMM yyyy', { locale: ru })}</div>
           </div>
 
           <div className={css.infoGrid}>
@@ -74,7 +113,7 @@ export const ProfilePage = withPageWrapper({
               </div>
               <div className={css.infoContent}>
                 <span className={css.label}>Телефон</span>
-                <span className={css.value}>{me.phone || 'Не указан'}</span>
+                <span className={css.value}>{user.phone || 'Не указан'}</span>
               </div>
             </div>
 
@@ -84,7 +123,7 @@ export const ProfilePage = withPageWrapper({
               </div>
               <div className={css.infoContent}>
                 <span className={css.label}>Почта</span>
-                <span className={css.value}>{me.email || 'Не указан'}</span>
+                <span className={css.value}>{user.email || 'Не указан'}</span>
               </div>
             </div>
 
@@ -94,7 +133,7 @@ export const ProfilePage = withPageWrapper({
               </div>
               <div className={css.infoContent}>
                 <span className={css.label}>Дата рождения</span>
-                <span className={css.value}>{me.age || 'Не указана'}</span>
+                <span className={css.value}>{user.age || 'Не указана'}</span>
               </div>
             </div>
 
@@ -104,7 +143,7 @@ export const ProfilePage = withPageWrapper({
               </div>
               <div className={css.infoContent}>
                 <span className={css.label}>Форма обучения</span>
-                <span className={css.value}>{me.form || 'Не указана'}</span>
+                <span className={css.value}>{user.form || 'Не указана'}</span>
               </div>
             </div>
 
@@ -114,7 +153,7 @@ export const ProfilePage = withPageWrapper({
               </div>
               <div className={css.infoContent}>
                 <span className={css.label}>Факультет</span>
-                <span className={css.value}>{me.faculty || 'Не указан'}</span>
+                <span className={css.value}>{user.faculty || 'Не указан'}</span>
               </div>
             </div>
 
@@ -124,7 +163,7 @@ export const ProfilePage = withPageWrapper({
               </div>
               <div className={css.infoContent}>
                 <span className={css.label}>Направление</span>
-                <span className={css.value}>{me.direction || 'Не указано'}</span>
+                <span className={css.value}>{user.direction || 'Не указано'}</span>
               </div>
             </div>
 
@@ -134,7 +173,7 @@ export const ProfilePage = withPageWrapper({
               </div>
               <div className={css.infoContent}>
                 <span className={css.label}>Группа</span>
-                <span className={css.value}>{me.group || 'Не указана'}</span>
+                <span className={css.value}>{user.group || 'Не указана'}</span>
               </div>
             </div>
 
@@ -144,7 +183,7 @@ export const ProfilePage = withPageWrapper({
               </div>
               <div className={css.infoContent}>
                 <span className={css.label}>Курс</span>
-                <span className={css.value}>{me.year || 'Не указан'}</span>
+                <span className={css.value}>{user.year || 'Не указан'}</span>
               </div>
             </div>
           </div>

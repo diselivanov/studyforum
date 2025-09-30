@@ -43,7 +43,7 @@ export const getTopicsTrpcRoute = trpcLoggedProcedure.input(zGetTopicsTrpcInput)
 
       // Добавляем фильтрацию по дисциплине
       ...(input.discipline ? { discipline: input.discipline } : {}),
-      
+
       // Добавляем фильтрацию по преподавателю
       ...(input.teacher ? { teacher: input.teacher } : {}),
 

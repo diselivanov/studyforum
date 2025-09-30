@@ -7,18 +7,18 @@ import { LuSearch } from 'react-icons/lu'
 import { FaCheck } from 'react-icons/fa6'
 import { BiSolidInfoCircle } from 'react-icons/bi'
 import { TbUserScan } from 'react-icons/tb'
-import { RiSettings3Line } from "react-icons/ri";
+import { RiSettings3Line } from 'react-icons/ri'
 import { MdOutlineModeEditOutline } from 'react-icons/md'
 import { FiChevronLeft, FiChevronRight, FiChevronUp, FiChevronDown } from 'react-icons/fi'
 import { IoAdd } from 'react-icons/io5'
 import { SiAlwaysdata } from 'react-icons/si'
-import { BiMessageSquareDetail } from "react-icons/bi";
-import { GoSignOut } from "react-icons/go";
-import { RiMoreFill } from "react-icons/ri";
+import { BiMessageSquareDetail } from 'react-icons/bi'
+import { GoSignOut } from 'react-icons/go'
+import { RiMoreFill } from 'react-icons/ri'
 import { TbCopy } from 'react-icons/tb'
 import { HiOutlineViewGrid } from 'react-icons/hi'
-import { AiFillLike } from "react-icons/ai";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike } from 'react-icons/ai'
+import { AiOutlineLike } from 'react-icons/ai'
 
 const icons = {
   likeEmpty: AiOutlineLike,

@@ -27,3 +27,10 @@ body {
 a {
   text-decoration: none;
 }
+
+input {
+  &::placeholder {
+    color: $color-3;
+    opacity: 1;
+  }
+}

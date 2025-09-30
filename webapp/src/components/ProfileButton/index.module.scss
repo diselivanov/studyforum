@@ -21,9 +21,9 @@
   border: 1px solid $border-color;
   color: $color-1;
   transition: background-color 0.1s;
-  
+
   &:hover {
-   background-color: $background-2;
+    background-color: $background-2;
   }
 }
 
@@ -71,7 +71,7 @@
   transition: background-color 0.1s;
   margin-left: auto;
   margin-right: 4px;
-  
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.04);
   }
@@ -83,11 +83,11 @@
   left: 5px;
   border-radius: 8px;
   padding: 5px;
-  width: 179px;
+  width: 219px;
   z-index: 1000;
   overflow: hidden;
   background: $background-2;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid $border-color;
 }
 
 .menuItem {
@@ -104,8 +104,8 @@
   color: $color-1;
   text-decoration: none;
   transition: background-color 0.1s ease;
-  
+
   &:hover {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: $background-3;
   }
 }

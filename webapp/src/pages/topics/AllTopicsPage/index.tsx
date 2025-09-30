@@ -11,6 +11,30 @@ import { trpc } from '../../../lib/trpc'
 import { Topic } from '../../../components/Topic'
 import { Select } from '../../../components/Select'
 import css from './index.module.scss'
+import { Icon } from '../../../components/Icon'
+import { motion, AnimatePresence } from 'framer-motion'
+
+// Добавьте этот интерфейс в начало файла
+interface TopicWithAnimationProps {
+  topic: any
+  index: number
+}
+
+const TopicWithAnimation: React.FC<TopicWithAnimationProps> = ({ topic, index }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: [0.25, 0.1, 0.25, 1], // Плавная кривая
+      }}
+    >
+      <Topic topic={topic} />
+    </motion.div>
+  )
+}
 
 const disciplineTeachersMap = {
   'Высшая математика': [
@@ -42,9 +66,9 @@ const disciplineTeachersMap = {
     { value: 'Родина Л.И.', label: 'Родина Л.И.' },
     { value: 'Ушаков В.К.', label: 'Ушаков В.К.' },
     { value: 'Шевелев В.В.', label: 'Шевелев В.В.' },
-    { value: 'Шелепова Е.В.', label: 'Шелепова Е.В.' }
+    { value: 'Шелепова Е.В.', label: 'Шелепова Е.В.' },
   ],
-  'Физика': [
+  Физика: [
     { value: 'Глазков В.Н.', label: 'Глазков В.Н.' },
     { value: 'Сафронов И.С.', label: 'Сафронов И.С.' },
     { value: 'Андрухова О.В.', label: 'Андрухова О.В.' },
@@ -66,7 +90,7 @@ const disciplineTeachersMap = {
     { value: 'Шинкин В.Н.', label: 'Шинкин В.Н.' },
     { value: 'Шелятев Д.А.', label: 'Шелятев Д.А.' },
     { value: 'Забенков И.В.', label: 'Забенков И.В.' },
-    { value: 'Агиевич И.А.', label: 'Агиевич И.А.' }
+    { value: 'Агиевич И.А.', label: 'Агиевич И.А.' },
   ],
   'Социальные науки': [
     { value: 'Тимощук Н.А.', label: 'Тимощук Н.А.' },
@@ -89,9 +113,9 @@ const disciplineTeachersMap = {
     { value: 'Урсул Т.А.', label: 'Урсул Т.А.' },
     { value: 'Хорват Д.А.', label: 'Хорват Д.А.' },
     { value: 'Челышев П.В.', label: 'Челышев П.В.' },
-    { value: 'Черных А.А.', label: 'Черных А.А.' }
+    { value: 'Черных А.А.', label: 'Черных А.А.' },
   ],
-  'Химия': [
+  Химия: [
     { value: 'Пестряк И.В.', label: 'Пестряк И.В.' },
     { value: 'Лобанова В.Г.', label: 'Лобанова В.Г.' },
     { value: 'Волков П.В.', label: 'Волков П.В.' },
@@ -103,7 +127,7 @@ const disciplineTeachersMap = {
     { value: 'Поливанская В.В.', label: 'Поливанская В.В.' },
     { value: 'Сименео А.А.', label: 'Сименео А.А.' },
     { value: 'Тер-Акопян М.Н.', label: 'Тер-Акопян М.Н.' },
-    { value: 'Чеканова Е.С.', label: 'Чеканова Е.С.' }
+    { value: 'Чеканова Е.С.', label: 'Чеканова Е.С.' },
   ],
   'Иностранные языки': [
     { value: 'Щавелева Е.Н.', label: 'Щавелева Е.Н.' },
@@ -115,7 +139,7 @@ const disciplineTeachersMap = {
     { value: 'Богатырёв А.А.', label: 'Богатырёв А.А.' },
     { value: 'Валле Чилина И.Д.', label: 'Валле Чилина И.Д.' },
     { value: 'Витогнова А.М.', label: 'Витогнова А.М.' },
-    { value: 'Горизонтова А.В', label: 'Горизонтова А.В' }
+    { value: 'Горизонтова А.В', label: 'Горизонтова А.В' },
   ],
   'Инфокоммуникационные технологии': [
     { value: 'Колистратов М.В.', label: 'Колистратов М.В.' },
@@ -140,8 +164,8 @@ const disciplineTeachersMap = {
     { value: 'Нафиков А.М.', label: 'Нафиков А.М.' },
     { value: 'Ефимов Д.А.', label: 'Ефимов Д.А.' },
     { value: 'Ким В.Р.', label: 'Ким В.Р.' },
-    { value: 'Климченко К.П.', label: 'Климченко К.П.' }
-  ]
+    { value: 'Климченко К.П.', label: 'Климченко К.П.' },
+  ],
 }
 
 export const AllTopicsPage = withPageWrapper({
@@ -149,22 +173,22 @@ export const AllTopicsPage = withPageWrapper({
   isTitleExact: true,
 })(() => {
   const form = useForm({
-    initialValues: { 
-      search: '', 
-      discipline: '', 
-      teacher: '' 
+    initialValues: {
+      search: '',
+      discipline: '',
+      teacher: '',
     },
-    validationSchema: zGetTopicsTrpcInput.pick({ 
-      search: true, 
-      discipline: true, 
-      teacher: true 
+    validationSchema: zGetTopicsTrpcInput.pick({
+      search: true,
+      discipline: true,
+      teacher: true,
     }),
   })
 
   const [filters, setFilters] = React.useState({
     search: '',
     discipline: '',
-    teacher: ''
+    teacher: '',
   })
 
   // Дебаунс для поиска
@@ -176,7 +200,7 @@ export const AllTopicsPage = withPageWrapper({
     return () => clearTimeout(timeoutId)
   }, [form.formik.values])
 
-  const availableTeachers = form.formik.values.discipline 
+  const availableTeachers = form.formik.values.discipline
     ? disciplineTeachersMap[form.formik.values.discipline as keyof typeof disciplineTeachersMap] || []
     : []
 
@@ -198,40 +222,40 @@ export const AllTopicsPage = withPageWrapper({
     <Segment title={undefined}>
       {/* Форма фильтрации */}
       <div className={css.filters}>
-        <input
-          type="text"
-          placeholder="Поиск по названию"
-          value={form.formik.values.search}
-          onChange={(e) => form.formik.setFieldValue('search', e.target.value)}
-          className={css.searchInput}
-        />
-        
+        <div className={css.searchContainer}>
+          <Icon name={'search'} size={18} />
+          <input
+            type="text"
+            placeholder="Поиск"
+            value={form.formik.values.search}
+            onChange={(e) => form.formik.setFieldValue('search', e.target.value)}
+            className={css.searchInput}
+          />
+        </div>
+
         <div className={css.selects}>
-          <Select 
-          name="discipline" 
-          label="" 
-          formik={form.formik}
-          options={[
-            { value: '', label: 'Все дисциплины' },
-            { value: 'Высшая математика', label: 'Высшая математика' },
-            { value: 'Физика', label: 'Физика' },
-            { value: 'Социальные науки', label: 'Социальные науки' },
-            { value: 'Химия', label: 'Химия' },
-            { value: 'Иностранные языки', label: 'Иностранные языки' },
-            { value: 'Инфокоммуникационные технологии', label: 'Инфокоммуникационные технологии' },
-          ]}
-        />
-        
-        <Select 
-          name="teacher" 
-          label="" 
-          formik={form.formik}
-          options={[
-            { value: '', label: 'Все преподаватели' },
-            ...availableTeachers
-          ]}
-          disabled={!form.formik.values.discipline}
-        />
+          <Select
+            name="discipline"
+            label=""
+            formik={form.formik}
+            options={[
+              { value: '', label: 'Все дисциплины' },
+              { value: 'Высшая математика', label: 'Высшая математика' },
+              { value: 'Физика', label: 'Физика' },
+              { value: 'Социальные науки', label: 'Социальные науки' },
+              { value: 'Химия', label: 'Химия' },
+              { value: 'Иностранные языки', label: 'Иностранные языки' },
+              { value: 'Инфокоммуникационные технологии', label: 'Инфокоммуникационные технологии' },
+            ]}
+          />
+
+          <Select
+            name="teacher"
+            label=""
+            formik={form.formik}
+            options={[{ value: '', label: 'Все преподаватели' }, ...availableTeachers]}
+            disabled={!form.formik.values.discipline}
+          />
         </div>
       </div>
 
@@ -259,11 +283,13 @@ export const AllTopicsPage = withPageWrapper({
           getScrollParent={() => layoutContentElRef.current}
           useWindow={(layoutContentElRef.current && getComputedStyle(layoutContentElRef.current).overflow) !== 'auto'}
         >
-          {data.pages
-            .flatMap((page) => page.topics)
-            .map((topic) => (
-              <Topic key={topic.id} topic={topic} />
-            ))}
+          <AnimatePresence mode="popLayout">
+            {data.pages
+              .flatMap((page) => page.topics)
+              .map((topic, index) => (
+                <TopicWithAnimation key={topic.id} topic={topic} index={index} />
+              ))}
+          </AnimatePresence>
         </InfiniteScroll>
       )}
     </Segment>
