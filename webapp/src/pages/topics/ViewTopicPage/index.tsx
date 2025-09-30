@@ -14,6 +14,7 @@ import { trpc } from '../../../lib/trpc'
 import css from './index.module.scss'
 import { ru } from 'date-fns/locale'
 import { Link } from 'react-router-dom'
+import EmojiPicker, { Theme } from 'emoji-picker-react';
 
 const LikeButton = ({ topic }: { topic: NonNullable<TrpcRouterOutput['getTopic']['topic']> }) => {
   const trpcUtils = trpc.useContext()
@@ -123,7 +124,7 @@ const CommentItem = ({
       void trpcUtils.getTopicComments.invalidate({ topicId })
     },
   })
-
+  
   const handleSubmitReply = (e: React.FormEvent) => {
     e.preventDefault()
     if (!replyContent.trim()) return
@@ -205,6 +206,13 @@ const CommentsSection = ({ topicId }: { topicId: string }) => {
 
   const { data: commentsData, isLoading } = trpc.getTopicComments.useQuery({ topicId }, { enabled: !!topicId })
 
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const onEmojiClick = (emojiData) => {
+    setNewComment(prev => prev + emojiData.emoji);
+    setShowEmojiPicker(false);
+  };
+
   const createComment = trpc.createComment.useMutation({
     onSuccess: () => {
       setNewComment('')
@@ -250,12 +258,29 @@ const CommentsSection = ({ topicId }: { topicId: string }) => {
             </button>
           </div>
         )}
+        <div className={css.inputContainer}>
         <input
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder={replyingTo ? 'Напишите ответ...' : 'Напишите комментарий...'}
           className={css.commentTextarea}
         />
+      </div>
+
+      <button 
+          type="button" 
+          className={css.emojiButton}
+          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+        >
+          😊
+        </button>
+        
+        {showEmojiPicker && (
+          <div className={css.emojiPicker}>
+            <EmojiPicker onEmojiClick={onEmojiClick} theme={Theme.DARK}  />
+          </div>
+        )}
+
         <div className={css.commentSubmit}>
           <Button type="submit" disabled={createComment.isLoading || !newComment.trim()}>
             {createComment.isLoading ? 'Отправка...' : 'Отправить'}
